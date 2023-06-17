@@ -1,5 +1,5 @@
 import { useEffect, FormEventHandler } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import { EmptyLayout } from "@/Layouts/EmptyLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -33,7 +33,7 @@ export default function ResetPassword({
 	};
 
 	return (
-		<GuestLayout>
+		<EmptyLayout>
 			<Head title="Reset Password" />
 
 			<form onSubmit={submit}>
@@ -99,6 +99,6 @@ export default function ResetPassword({
 					</PrimaryButton>
 				</div>
 			</form>
-		</GuestLayout>
+		</EmptyLayout>
 	);
 }
