@@ -61,7 +61,11 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: ["var(--font-sans)", ...fontFamily.sans],
+				sans: [
+					"var(--font-sans)",
+					"Apple Color Emoji",
+					...fontFamily.sans,
+				],
 			},
 			keyframes: {
 				"accordion-down": {
