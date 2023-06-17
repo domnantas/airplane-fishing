@@ -19,10 +19,10 @@ export const Header = ({ isAuthenticated }: HeaderProps) => (
 					) : (
 						<>
 							<Button asChild>
-								<Link href={route("login")}>Sign in</Link>
+								<Link href={route("login")}>Log in</Link>
 							</Button>
 							<Button variant="secondary" asChild>
-								<Link href={route("register")}>Sign up</Link>
+								<Link href={route("sign-up")}>Sign up</Link>
 							</Button>
 						</>
 					)}

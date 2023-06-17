@@ -6,7 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Register() {
+export default function SignUp() {
 	const { data, setData, post, processing, errors, reset } = useForm({
 		name: "",
 		email: "",
@@ -23,12 +23,12 @@ export default function Register() {
 	const submit: FormEventHandler = (e) => {
 		e.preventDefault();
 
-		post(route("register"));
+		post(route("sign-up"));
 	};
 
 	return (
 		<EmptyLayout>
-			<Head title="Register" />
+			<Head title="Sign Up" />
 
 			<form onSubmit={submit}>
 				<div>
@@ -112,11 +112,11 @@ export default function Register() {
 						href={route("login")}
 						className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
 					>
-						Already registered?
+						Already signed up?
 					</Link>
 
 					<PrimaryButton className="ml-4" disabled={processing}>
-						Register
+						Sign Up
 					</PrimaryButton>
 				</div>
 			</form>
