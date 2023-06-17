@@ -14,12 +14,12 @@ export const Header = ({ isAuthenticated }: HeaderProps) => (
 				<nav className="flex items-center space-x-4">
 					{isAuthenticated ? (
 						<Button asChild>
-							<Link href={route("login")}>Dashboard</Link>
+							<Link href={route("dashboard")}>Dashboard</Link>
 						</Button>
 					) : (
 						<>
 							<Button asChild>
-								<Link href={route("login")}>Log in</Link>
+								<Link href={route("log-in")}>Log in</Link>
 							</Button>
 							<Button variant="secondary" asChild>
 								<Link href={route("sign-up")}>Sign up</Link>

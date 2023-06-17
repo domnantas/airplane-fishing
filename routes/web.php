@@ -17,7 +17,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
+        'canLogIn' => Route::has('log-in'),
         'canSignUp' => Route::has('sign-up'),
     ]);
 });
