@@ -95,15 +95,17 @@ export default function Login({
 						</form>
 					</CardContent>
 					<CardFooter className="flex justify-end gap-2">
-						<Button
-							variant="link"
-							className="text-muted-foreground"
-							asChild
-						>
-							<Link href={route("password.request")}>
-								Forgot your password?
-							</Link>
-						</Button>
+						{canResetPassword && (
+							<Button
+								variant="link"
+								className="text-muted-foreground"
+								asChild
+							>
+								<Link href={route("password.request")}>
+									Forgot your password?
+								</Link>
+							</Button>
+						)}
 						<Button
 							type="submit"
 							form="login"
