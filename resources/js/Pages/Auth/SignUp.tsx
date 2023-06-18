@@ -36,12 +36,12 @@ export default function SignUp() {
 
 	return (
 		<EmptyLayout>
-			<Head title="Sign Up" />
+			<Head title="Sign up" />
 
 			<div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
 				<Card className="w-full max-w-md">
 					<CardHeader>
-						<CardTitle>Sign Up</CardTitle>
+						<CardTitle>Sign up</CardTitle>
 						<CardDescription>
 							Have an account already?{" "}
 							<Link
@@ -123,7 +123,7 @@ export default function SignUp() {
 							form="sign-up"
 							disabled={processing}
 						>
-							Sign Up
+							Sign up
 						</Button>
 					</CardFooter>
 				</Card>

@@ -121,7 +121,7 @@ export default function Login({
 							form="login"
 							disabled={processing}
 						>
-							Log In
+							Log in
 						</Button>
 					</CardFooter>
 				</Card>
