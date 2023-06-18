@@ -8,9 +8,9 @@ import { useEffect, useRef, useState } from "react";
 export default function Dashboard({ auth }: PageProps) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
 	const map = useRef<Map | null>(null);
-	const [lng, setLng] = useState(-70.9);
-	const [lat, setLat] = useState(42.35);
-	const [zoom, setZoom] = useState(9);
+	const [lng, setLng] = useState(0);
+	const [lat, setLat] = useState(0);
+	const [zoom, setZoom] = useState(1);
 
 	useEffect(() => {
 		if (map.current) return;
@@ -21,6 +21,21 @@ export default function Dashboard({ auth }: PageProps) {
 				style: "mapbox://styles/mapbox/streets-v12",
 				center: [lng, lat],
 				zoom: zoom,
+			});
+
+			const geolocate = new mapboxgl.GeolocateControl({
+				fitBoundsOptions: {
+					maxZoom: 12,
+				},
+				positionOptions: {
+					enableHighAccuracy: true,
+				},
+				trackUserLocation: true,
+			});
+
+			map.current.addControl(geolocate);
+			map.current.on("load", () => {
+				geolocate.trigger();
 			});
 		}
 	}, []);
