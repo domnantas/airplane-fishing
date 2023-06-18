@@ -1,4 +1,4 @@
-import { EmptyLayout } from "@/Layouts/EmptyLayout";
+import { AuthLayout } from "@/Layouts/AuthLayout";
 import InputError from "@/Components/InputError";
 import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
@@ -26,49 +26,47 @@ export default function ForgotPassword({ status }: { status?: string }) {
 	};
 
 	return (
-		<EmptyLayout>
+		<AuthLayout>
 			<Head title="Forgot Password" />
 
-			<div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-				<Card className="w-full max-w-md">
-					<CardHeader>
-						<CardTitle>Forgot your password?</CardTitle>
-						<CardDescription>
-							No problem. Just let us know your email address and
-							we will email you a password reset link that will
-							allow you to choose a new one.
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<form id="forgot-password" onSubmit={submit}>
-							<div className="grid w-full items-center gap-4">
-								<div className="grid gap-2">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										value={data.email}
-										type="email"
-										autoFocus
-										onChange={(event) =>
-											setData("email", event.target.value)
-										}
-									/>
-									<InputError message={errors.email} />
-								</div>
+			<Card className="w-full max-w-md">
+				<CardHeader>
+					<CardTitle>Forgot your password?</CardTitle>
+					<CardDescription>
+						No problem. Just let us know your email address and we
+						will email you a password reset link that will allow you
+						to choose a new one.
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<form id="forgot-password" onSubmit={submit}>
+						<div className="grid w-full items-center gap-4">
+							<div className="grid gap-2">
+								<Label htmlFor="email">Email</Label>
+								<Input
+									id="email"
+									value={data.email}
+									type="email"
+									autoFocus
+									onChange={(event) =>
+										setData("email", event.target.value)
+									}
+								/>
+								<InputError message={errors.email} />
 							</div>
-						</form>
-					</CardContent>
-					<CardFooter className="flex justify-end gap-2">
-						<Button
-							type="submit"
-							form="forgot-password"
-							disabled={processing}
-						>
-							Send password reset link
-						</Button>
-					</CardFooter>
-				</Card>
-			</div>
-		</EmptyLayout>
+						</div>
+					</form>
+				</CardContent>
+				<CardFooter className="flex justify-end gap-2">
+					<Button
+						type="submit"
+						form="forgot-password"
+						disabled={processing}
+					>
+						Send password reset link
+					</Button>
+				</CardFooter>
+			</Card>
+		</AuthLayout>
 	);
 }

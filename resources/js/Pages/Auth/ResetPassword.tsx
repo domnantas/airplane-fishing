@@ -1,5 +1,5 @@
 import { useEffect, FormEventHandler } from "react";
-import { EmptyLayout } from "@/Layouts/EmptyLayout";
+import { AuthLayout } from "@/Layouts/AuthLayout";
 import InputError from "@/Components/InputError";
 import { Head, useForm } from "@inertiajs/react";
 import { Button } from "@/Components/ui/Button";
@@ -40,77 +40,72 @@ export default function ResetPassword({
 	};
 
 	return (
-		<EmptyLayout>
+		<AuthLayout>
 			<Head title="Reset Password" />
 
-			<div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-				<Card className="w-full max-w-md">
-					<CardHeader>
-						<CardTitle>Reset Password</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<form id="reset-password" onSubmit={submit}>
-							<div className="grid w-full items-center gap-4">
-								<div className="grid gap-2">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										value={data.email}
-										type="email"
-										onChange={(event) =>
-											setData("email", event.target.value)
-										}
-									/>
-									<InputError message={errors.email} />
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="password">Password</Label>
-									<Input
-										id="password"
-										value={data.password}
-										type="password"
-										onChange={(event) =>
-											setData(
-												"password",
-												event.target.value
-											)
-										}
-									/>
-									<InputError message={errors.password} />
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="password_confirmation">
-										Confirm Password
-									</Label>
-									<Input
-										id="password_confirmation"
-										value={data.password_confirmation}
-										type="password"
-										onChange={(event) =>
-											setData(
-												"password_confirmation",
-												event.target.value
-											)
-										}
-									/>
-									<InputError
-										message={errors.password_confirmation}
-									/>
-								</div>
+			<Card className="w-full max-w-md">
+				<CardHeader>
+					<CardTitle>Reset Password</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<form id="reset-password" onSubmit={submit}>
+						<div className="grid w-full items-center gap-4">
+							<div className="grid gap-2">
+								<Label htmlFor="email">Email</Label>
+								<Input
+									id="email"
+									value={data.email}
+									type="email"
+									onChange={(event) =>
+										setData("email", event.target.value)
+									}
+								/>
+								<InputError message={errors.email} />
 							</div>
-						</form>
-					</CardContent>
-					<CardFooter className="flex justify-end gap-2">
-						<Button
-							type="submit"
-							form="reset-password"
-							disabled={processing}
-						>
-							Reset Password
-						</Button>
-					</CardFooter>
-				</Card>
-			</div>
-		</EmptyLayout>
+							<div className="grid gap-2">
+								<Label htmlFor="password">Password</Label>
+								<Input
+									id="password"
+									value={data.password}
+									type="password"
+									onChange={(event) =>
+										setData("password", event.target.value)
+									}
+								/>
+								<InputError message={errors.password} />
+							</div>
+							<div className="grid gap-2">
+								<Label htmlFor="password_confirmation">
+									Confirm Password
+								</Label>
+								<Input
+									id="password_confirmation"
+									value={data.password_confirmation}
+									type="password"
+									onChange={(event) =>
+										setData(
+											"password_confirmation",
+											event.target.value
+										)
+									}
+								/>
+								<InputError
+									message={errors.password_confirmation}
+								/>
+							</div>
+						</div>
+					</form>
+				</CardContent>
+				<CardFooter className="flex justify-end gap-2">
+					<Button
+						type="submit"
+						form="reset-password"
+						disabled={processing}
+					>
+						Reset Password
+					</Button>
+				</CardFooter>
+			</Card>
+		</AuthLayout>
 	);
 }
