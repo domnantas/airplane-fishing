@@ -39,7 +39,9 @@ export default function VerifyEmail({ status }: { status?: string }) {
 						className="text-muted-foreground"
 						asChild
 					>
-						<Link href={route("logout")}>Log out</Link>
+						<Link href={route("logout")} method="post" as="button">
+							Log out
+						</Link>
 					</Button>
 					<Button onClick={submit} disabled={processing}>
 						Resend Verification Email
