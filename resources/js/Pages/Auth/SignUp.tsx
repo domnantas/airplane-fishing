@@ -1,9 +1,6 @@
 import { useEffect, FormEventHandler } from "react";
 import { EmptyLayout } from "@/Layouts/EmptyLayout";
 import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Button } from "@/Components/ui/Button";
 import {
@@ -15,7 +12,6 @@ import {
 	CardDescription,
 } from "@/Components/ui/Card";
 import { Input } from "@/Components/ui/Input";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Label } from "@radix-ui/react-label";
 
 export default function SignUp() {
