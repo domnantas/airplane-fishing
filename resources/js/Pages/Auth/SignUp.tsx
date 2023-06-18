@@ -65,7 +65,6 @@ export default function SignUp() {
 										onChange={(event) =>
 											setData("name", event.target.value)
 										}
-										required
 									/>
 									<InputError message={errors.name} />
 								</div>
@@ -78,7 +77,6 @@ export default function SignUp() {
 										onChange={(event) =>
 											setData("email", event.target.value)
 										}
-										required
 									/>
 									<InputError message={errors.email} />
 								</div>
@@ -94,7 +92,6 @@ export default function SignUp() {
 												event.target.value
 											)
 										}
-										required
 									/>
 									<InputError message={errors.password} />
 								</div>
@@ -112,7 +109,6 @@ export default function SignUp() {
 												event.target.value
 											)
 										}
-										required
 									/>
 									<InputError
 										message={errors.password_confirmation}
