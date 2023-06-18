@@ -5,7 +5,7 @@ type HeaderProps = {
 	isAuthenticated: boolean;
 };
 export const Header = ({ isAuthenticated }: HeaderProps) => (
-	<header className="sticky top-0 z-40 w-full border-b border-b-slate-200 bg-white dark:border-b-slate-700 dark:bg-slate-900">
+	<header className="sticky top-0 z-40 w-full border-b border-b-slate-200 dark:border-b-slate-700">
 		<div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
 			<Link href="/" className="text-2xl font-bold">
 				Airplane Fishing
@@ -18,10 +18,10 @@ export const Header = ({ isAuthenticated }: HeaderProps) => (
 						</Button>
 					) : (
 						<>
-							<Button asChild>
+							<Button variant="secondary" asChild>
 								<Link href={route("log-in")}>Log in</Link>
 							</Button>
-							<Button variant="secondary" asChild>
+							<Button asChild>
 								<Link href={route("sign-up")}>Sign up</Link>
 							</Button>
 						</>

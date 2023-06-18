@@ -1,5 +1,4 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
-import forms from "@tailwindcss/forms";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
@@ -10,7 +9,6 @@ export default {
 		"./resources/views/**/*.blade.php",
 		"./resources/js/**/*.tsx",
 	],
-
 	theme: {
 		container: {
 			center: true,
@@ -61,11 +59,7 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: [
-					"var(--font-sans)",
-					"Apple Color Emoji",
-					...fontFamily.sans,
-				],
+				sans: ["var(--font-sans)", ...fontFamily.sans],
 			},
 			keyframes: {
 				"accordion-down": {
@@ -84,5 +78,5 @@ export default {
 		},
 	},
 
-	plugins: [forms, tailwindcssAnimate],
+	plugins: [tailwindcssAnimate],
 };
