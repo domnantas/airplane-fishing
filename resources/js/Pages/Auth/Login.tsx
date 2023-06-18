@@ -9,6 +9,7 @@ import {
 	CardTitle,
 	CardContent,
 	CardFooter,
+	CardDescription,
 } from "@/Components/ui/Card";
 import { Input } from "@/Components/ui/Input";
 import { Label } from "@/Components/ui/Label";
@@ -47,6 +48,15 @@ export default function Login({
 				<Card className="w-full max-w-md">
 					<CardHeader>
 						<CardTitle>Log in</CardTitle>
+						<CardDescription>
+							Don't have an account yet?{" "}
+							<Link
+								href={route("sign-up")}
+								className="underline underline-offset-4 hover:text-primary"
+							>
+								Sign up!
+							</Link>
+						</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<form id="login" onSubmit={submit}>

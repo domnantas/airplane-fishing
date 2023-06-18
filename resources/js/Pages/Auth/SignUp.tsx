@@ -5,6 +5,18 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { Button } from "@/Components/ui/Button";
+import {
+	Card,
+	CardHeader,
+	CardTitle,
+	CardContent,
+	CardFooter,
+	CardDescription,
+} from "@/Components/ui/Card";
+import { Input } from "@/Components/ui/Input";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import { Label } from "@radix-ui/react-label";
 
 export default function SignUp() {
 	const { data, setData, post, processing, errors, reset } = useForm({
@@ -30,96 +42,100 @@ export default function SignUp() {
 		<EmptyLayout>
 			<Head title="Sign Up" />
 
-			<form onSubmit={submit}>
-				<div>
-					<InputLabel htmlFor="name" value="Name" />
-
-					<TextInput
-						id="name"
-						name="name"
-						value={data.name}
-						className="mt-1 block w-full"
-						autoComplete="name"
-						isFocused={true}
-						onChange={(e) => setData("name", e.target.value)}
-						required
-					/>
-
-					<InputError message={errors.name} className="mt-2" />
-				</div>
-
-				<div className="mt-4">
-					<InputLabel htmlFor="email" value="Email" />
-
-					<TextInput
-						id="email"
-						type="email"
-						name="email"
-						value={data.email}
-						className="mt-1 block w-full"
-						autoComplete="username"
-						onChange={(e) => setData("email", e.target.value)}
-						required
-					/>
-
-					<InputError message={errors.email} className="mt-2" />
-				</div>
-
-				<div className="mt-4">
-					<InputLabel htmlFor="password" value="Password" />
-
-					<TextInput
-						id="password"
-						type="password"
-						name="password"
-						value={data.password}
-						className="mt-1 block w-full"
-						autoComplete="new-password"
-						onChange={(e) => setData("password", e.target.value)}
-						required
-					/>
-
-					<InputError message={errors.password} className="mt-2" />
-				</div>
-
-				<div className="mt-4">
-					<InputLabel
-						htmlFor="password_confirmation"
-						value="Confirm Password"
-					/>
-
-					<TextInput
-						id="password_confirmation"
-						type="password"
-						name="password_confirmation"
-						value={data.password_confirmation}
-						className="mt-1 block w-full"
-						autoComplete="new-password"
-						onChange={(e) =>
-							setData("password_confirmation", e.target.value)
-						}
-						required
-					/>
-
-					<InputError
-						message={errors.password_confirmation}
-						className="mt-2"
-					/>
-				</div>
-
-				<div className="flex items-center justify-end mt-4">
-					<Link
-						href={route("log-in")}
-						className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-					>
-						Already signed up?
-					</Link>
-
-					<PrimaryButton className="ml-4" disabled={processing}>
-						Sign Up
-					</PrimaryButton>
-				</div>
-			</form>
+			<div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+				<Card className="w-full max-w-md">
+					<CardHeader>
+						<CardTitle>Sign Up</CardTitle>
+						<CardDescription>
+							Have an account already?{" "}
+							<Link
+								href={route("log-in")}
+								className="underline underline-offset-4 hover:text-primary"
+							>
+								Log in!
+							</Link>
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<form id="sign-up" onSubmit={submit}>
+							<div className="grid w-full items-center gap-4">
+								<div className="grid gap-2">
+									<Label htmlFor="name">Name</Label>
+									<Input
+										id="name"
+										autoFocus
+										value={data.name}
+										type="text"
+										onChange={(event) =>
+											setData("name", event.target.value)
+										}
+										required
+									/>
+									<InputError message={errors.name} />
+								</div>
+								<div className="grid gap-2">
+									<Label htmlFor="email">Email</Label>
+									<Input
+										id="email"
+										value={data.email}
+										type="email"
+										onChange={(event) =>
+											setData("email", event.target.value)
+										}
+										required
+									/>
+									<InputError message={errors.email} />
+								</div>
+								<div className="grid gap-2">
+									<Label htmlFor="password">Password</Label>
+									<Input
+										id="password"
+										value={data.password}
+										type="password"
+										onChange={(event) =>
+											setData(
+												"password",
+												event.target.value
+											)
+										}
+										required
+									/>
+									<InputError message={errors.password} />
+								</div>
+								<div className="grid gap-2">
+									<Label htmlFor="password_confirmation">
+										Confirm Password
+									</Label>
+									<Input
+										id="password_confirmation"
+										value={data.password_confirmation}
+										type="password"
+										onChange={(event) =>
+											setData(
+												"password_confirmation",
+												event.target.value
+											)
+										}
+										required
+									/>
+									<InputError
+										message={errors.password_confirmation}
+									/>
+								</div>
+							</div>
+						</form>
+					</CardContent>
+					<CardFooter className="flex justify-end gap-2">
+						<Button
+							type="submit"
+							form="sign-up"
+							disabled={processing}
+						>
+							Sign Up
+						</Button>
+					</CardFooter>
+				</Card>
+			</div>
 		</EmptyLayout>
 	);
 }
