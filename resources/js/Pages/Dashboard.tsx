@@ -2,7 +2,7 @@ import { AuthenticatedLayout } from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { H1 } from "@/Components/ui/Typography";
-import mapboxgl, { Map } from "mapbox-gl";
+import mapboxgl, { GeoJSONSource, Map } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { circle } from "@turf/turf";
 
@@ -12,6 +12,9 @@ export default function Dashboard({ auth }: PageProps) {
 	const [lng, setLng] = useState(0);
 	const [lat, setLat] = useState(0);
 	const [zoom, setZoom] = useState(1);
+	const [currentPosition, setCurrentPosition] = useState<number[] | null>(
+		null
+	);
 
 	useEffect(() => {
 		if (map.current) return;
@@ -39,26 +42,41 @@ export default function Dashboard({ auth }: PageProps) {
 				geolocate.trigger();
 			});
 			geolocate.once("geolocate", (event) => {
+				if (!map.current) return;
 				const { latitude, longitude } = (event as GeolocationPosition)
 					.coords;
 
-				if (map.current) {
-					map.current.addSource("catch_range", {
-						type: "geojson",
-						data: circle([longitude, latitude], 1),
-					});
-					console.log("ASdasd");
+				setCurrentPosition([longitude, latitude]);
 
-					map.current.addLayer({
-						id: "catch_range",
-						type: "line",
-						source: "catch_range",
-						paint: {
-							"line-color": "blue",
-							"line-width": 3,
-						},
-					});
-				}
+				map.current.addSource("catch_range", {
+					type: "geojson",
+					data: circle([longitude, latitude], 1),
+				});
+
+				map.current.addLayer({
+					id: "catch_range",
+					type: "line",
+					source: "catch_range",
+					paint: {
+						"line-color": "blue",
+						"line-width": 3,
+					},
+				});
+			});
+
+			// Update the catch circle when position changes
+			geolocate.on("geolocate", (event) => {
+				if (!map.current || !currentPosition) return;
+				const { latitude, longitude } = (event as GeolocationPosition)
+					.coords;
+
+				setCurrentPosition([longitude, latitude]);
+
+				const catchRangeSource = map.current.getSource(
+					"catch_range"
+				) as GeoJSONSource;
+
+				catchRangeSource.setData(circle([longitude, latitude], 1));
 			});
 		}
 	}, []);
