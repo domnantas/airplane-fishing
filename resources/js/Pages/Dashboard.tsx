@@ -4,6 +4,7 @@ import { PageProps } from "@/types";
 import { H1 } from "@/Components/ui/Typography";
 import mapboxgl, { Map } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
+import { circle } from "@turf/turf";
 
 export default function Dashboard({ auth }: PageProps) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -36,6 +37,28 @@ export default function Dashboard({ auth }: PageProps) {
 			map.current.addControl(geolocate);
 			map.current.on("load", () => {
 				geolocate.trigger();
+			});
+			geolocate.once("geolocate", (event) => {
+				const { latitude, longitude } = (event as GeolocationPosition)
+					.coords;
+
+				if (map.current) {
+					map.current.addSource("catch_range", {
+						type: "geojson",
+						data: circle([longitude, latitude], 1),
+					});
+					console.log("ASdasd");
+
+					map.current.addLayer({
+						id: "catch_range",
+						type: "line",
+						source: "catch_range",
+						paint: {
+							"line-color": "blue",
+							"line-width": 3,
+						},
+					});
+				}
 			});
 		}
 	}, []);
