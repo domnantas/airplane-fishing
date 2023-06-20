@@ -15,7 +15,7 @@ import { Input } from "@/Components/ui/Input";
 import { Label } from "@/Components/ui/Label";
 import { Checkbox } from "@/Components/ui/Checkbox";
 
-export default function Login({
+export default function LogIn({
 	status,
 	canResetPassword,
 }: {
