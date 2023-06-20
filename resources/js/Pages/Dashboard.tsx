@@ -53,7 +53,15 @@ export default function Dashboard({ auth }: PageProps) {
 			map.current.addControl(geolocate);
 			map.current.on("load", () => {
 				geolocate.trigger();
+
+				map.current?.loadImage("/airplane.png", (error, image) => {
+					if (error) throw error;
+					if (!image) return;
+
+					map.current?.addImage("airplane", image, { sdf: true });
+				});
 			});
+
 			geolocate.once("geolocate", (event) => {
 				if (!map.current) return;
 				const { latitude, longitude } = (event as GeolocationPosition)
@@ -74,7 +82,7 @@ export default function Dashboard({ auth }: PageProps) {
 					type: "line",
 					source: "catch_range",
 					paint: {
-						"line-color": "blue",
+						"line-color": "#1ca1f2",
 						"line-width": 3,
 					},
 				});
@@ -109,10 +117,16 @@ export default function Dashboard({ auth }: PageProps) {
 						type: "symbol",
 						source: "airplanes",
 						layout: {
-							"icon-image": "airport",
+							"icon-image": "airplane",
 							"icon-allow-overlap": true,
 							"icon-rotate": ["get", "track"],
 							"icon-rotation-alignment": "map",
+						},
+						paint: {
+							"icon-color": "#ffffff",
+							"icon-halo-width": 3,
+							"icon-halo-color": "#000000",
+							"icon-halo-blur": 2,
 						},
 					});
 				});
@@ -139,8 +153,6 @@ export default function Dashboard({ auth }: PageProps) {
 		if (!airplanes || !catchRange) return;
 		return pointsWithinPolygon(airplanes, catchRange);
 	}, [airplanes, catchRange]);
-
-	console.log(airplanesInRange);
 
 	return (
 		<AuthenticatedLayout>
