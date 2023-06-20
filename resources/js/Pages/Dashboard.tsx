@@ -1,11 +1,25 @@
 import { AuthenticatedLayout } from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { H1 } from "@/Components/ui/Typography";
+import { H1, H2 } from "@/Components/ui/Typography";
 import mapboxgl, { GeoJSONSource, Map } from "mapbox-gl";
-import { useEffect, useRef, useState } from "react";
-import { circle, featureCollection, point } from "@turf/turf";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+	circle,
+	featureCollection,
+	point,
+	pointsWithinPolygon,
+} from "@turf/turf";
 import { getAirplanes } from "@/Api/openSkyNetwork";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/Components/ui/Card";
+import { Button } from "@/Components/ui/Button";
 
 export default function Dashboard({ auth }: PageProps) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -13,6 +27,8 @@ export default function Dashboard({ auth }: PageProps) {
 	const [currentPosition, setCurrentPosition] = useState<number[] | null>(
 		null
 	);
+	const [catchRange, setCatchRange] = useState(null);
+	const [airplanes, setAirplanes] = useState(null);
 
 	useEffect(() => {
 		if (map.current) return;
@@ -45,9 +61,12 @@ export default function Dashboard({ auth }: PageProps) {
 
 				setCurrentPosition([longitude, latitude]);
 
+				const catchRangeCircle = circle([longitude, latitude], 2);
+				setCatchRange(catchRangeCircle);
+
 				map.current.addSource("catch_range", {
 					type: "geojson",
-					data: circle([longitude, latitude], 1),
+					data: catchRangeCircle,
 				});
 
 				map.current.addLayer({
@@ -71,10 +90,14 @@ export default function Dashboard({ auth }: PageProps) {
 					const airplaneCollection = featureCollection(
 						airplanes.map((airplane) =>
 							point([airplane[5], airplane[6]], {
+								callsign: airplane[1],
+								origin: airplane[2],
 								track: airplane[10],
 							})
 						)
 					);
+
+					setAirplanes(airplaneCollection);
 
 					map.current.addSource("airplanes", {
 						type: "geojson",
@@ -112,6 +135,13 @@ export default function Dashboard({ auth }: PageProps) {
 		}
 	}, []);
 
+	const airplanesInRange = useMemo(() => {
+		if (!airplanes || !catchRange) return;
+		return pointsWithinPolygon(airplanes, catchRange);
+	}, [airplanes, catchRange]);
+
+	console.log(airplanesInRange);
+
 	return (
 		<AuthenticatedLayout>
 			<Head title="Dashboard" />
@@ -123,7 +153,29 @@ export default function Dashboard({ auth }: PageProps) {
 						ref={mapContainer}
 						className="h-[300px] sm:h-[600px] rounded-xl"
 					/>
-					<div>hello</div>
+					<div>
+						<H2 className="mb-4">In range</H2>
+						{airplanesInRange?.features.length
+							? airplanesInRange.features.map((airplane) => (
+									<Card>
+										<CardHeader>
+											<CardTitle>
+												{airplane.properties.callsign}
+											</CardTitle>
+										</CardHeader>
+										<CardContent>
+											<b>Origin:</b>{" "}
+											{airplane.properties.origin}
+										</CardContent>
+										<CardFooter>
+											<Button className="w-full text-2xl font-bold">
+												Catch!
+											</Button>
+										</CardFooter>
+									</Card>
+							  ))
+							: "No airplanes in range"}
+					</div>
 				</div>
 			</div>
 		</AuthenticatedLayout>
